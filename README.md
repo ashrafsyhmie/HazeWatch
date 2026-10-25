@@ -116,7 +116,7 @@ Public tables have RLS enabled with read-only policies. `ingestion_runs` has no 
 
 ### Vercel Cron
 
-`vercel.json` schedules `/api/ingest` at 15 minutes past each hour. Vercel sends `Authorization: Bearer $CRON_SECRET` when `CRON_SECRET` is set. Hourly cron requires a Vercel plan that supports it; on Hobby, use a daily schedule or Supabase Cron.
+`vercel.json` schedules `/api/ingest` daily at 00:15 UTC, which is supported on Vercel Hobby. Vercel sends `Authorization: Bearer $CRON_SECRET` when `CRON_SECRET` is set. For an hourly archive, use Supabase Cron or a Vercel plan that supports hourly jobs.
 
 ### Supabase Cron (alternative)
 
