@@ -90,7 +90,7 @@ export function SaveStationButton({
         type="button"
         onClick={toggle}
         aria-pressed={pinned}
-        className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10.5px] font-medium uppercase tracking-[0.1em] transition-colors ${
+        className={`inline-flex min-h-11 items-center gap-1.5 rounded-full border px-3 py-1 text-[11px] font-medium transition-colors ${
           pinned
             ? "border-signal/35 bg-signal/10 text-signal"
             : "border-line bg-surface text-muted hover:border-signal/30 hover:text-signal"
@@ -99,7 +99,7 @@ export function SaveStationButton({
         {pinned ? "Pinned" : "Pin station"}
       </button>
       {error ? (
-        <p role="alert" className="text-[9.5px] text-unhealthy">
+        <p role="alert" className="text-[11px] text-unhealthy">
           {error}
         </p>
       ) : null}
@@ -133,7 +133,7 @@ export function PreferredStationCard({
     return (
       <div className="panel flex flex-wrap items-center justify-between gap-3 px-4 py-3">
         <div>
-          <p className="text-[9px] font-medium uppercase tracking-[0.16em] text-muted">
+          <p className="text-[11px] font-medium text-muted">
             Your station
           </p>
           <p className="mt-1 text-[12px] text-fog/80">
@@ -143,7 +143,7 @@ export function PreferredStationCard({
         <button
           type="button"
           onClick={() => persist(null)}
-          className="rounded-full border border-line px-3 py-1 text-[10.5px] text-muted hover:border-signal/30 hover:text-signal"
+          className="rounded-full border border-line px-3 py-1 text-[11px] text-muted hover:border-signal/30 hover:text-signal"
         >
           Clear
         </button>
@@ -162,12 +162,12 @@ export function PreferredStationCard({
           style={{ backgroundColor: style.hex }}
         />
         <div className="min-w-0">
-          <p className="text-[9px] font-medium uppercase tracking-[0.16em] text-muted">
+          <p className="text-[11px] font-medium text-muted">
             Your station · stored on this device
           </p>
           <p className="mt-1 truncate text-[13px] font-medium text-fog">
             {station.shortName}
-            <span className="ml-2 text-[10.5px] font-normal text-muted">
+            <span className="ml-2 text-[11px] font-normal text-muted">
               {station.state}
             </span>
           </p>
@@ -184,7 +184,7 @@ export function PreferredStationCard({
           </span>
           <CategoryBadge category={station.category} />
         </div>
-        <p className="text-[10px] text-muted">
+        <p className="text-[11px] text-muted">
           {station.time} MYT
           {station.freshness !== "Current" ? ` · ${station.freshness}` : ""}
         </p>
@@ -198,7 +198,7 @@ export function PreferredStationCard({
           type="button"
           onClick={() => persist(null)}
           aria-label="Unpin my station"
-          className="grid h-6 w-6 place-items-center rounded-full border border-line text-[12px] text-muted hover:border-signal/30 hover:text-signal"
+          className="grid size-11 place-items-center rounded-full border border-line text-[12px] text-muted hover:border-signal/30 hover:text-signal"
         >
           ×
         </button>

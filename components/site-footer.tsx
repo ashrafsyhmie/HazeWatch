@@ -54,7 +54,7 @@ export function SiteFooter() {
         </div>
 
         <div>
-          <h2 className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
+          <h2 className="text-[11px] font-medium text-muted">
             Official sources
           </h2>
           <ul className="mt-4 space-y-3">
@@ -79,7 +79,7 @@ export function SiteFooter() {
         </div>
 
         <div>
-          <h2 className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
+          <h2 className="text-[11px] font-medium text-muted">
             Understand the data
           </h2>
           <ul className="mt-4 space-y-2.5 text-[13px]">

@@ -14,7 +14,7 @@ export function CategoryBadge({
   const style = categoryStyle(category);
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10.5px] font-medium uppercase tracking-[0.12em] ${style.bg} ${style.border} ${style.text} ${className}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium ${style.bg} ${style.border} ${style.text} ${className}`}
     >
       <span className={`h-1.5 w-1.5 rounded-full ${style.dot}`} />
       {style.label}
@@ -32,7 +32,7 @@ const FRESHNESS_STYLES: Record<Freshness["state"], string> = {
 export function FreshnessBadge({ freshness }: { freshness: Freshness }) {
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10.5px] font-medium uppercase tracking-[0.12em] ${FRESHNESS_STYLES[freshness.state]}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium ${FRESHNESS_STYLES[freshness.state]}`}
     >
       <span className="h-1.5 w-1.5 rounded-full bg-current opacity-80" />
       {freshness.label}
@@ -66,11 +66,11 @@ export function DeltaChip({
     <span
       className={`num inline-flex items-baseline gap-1 text-[11.5px] ${color} ${className}`}
     >
-      <span aria-hidden="true" className="text-[9px]">
+      <span aria-hidden="true" className="text-[11px]">
         {arrow}
       </span>
       <span>{formatSigned(delta)}</span>
-      <span className="font-sans text-[10px] uppercase tracking-[0.1em]">
+      <span className="font-sans text-[11px]">
         6h
       </span>
     </span>
@@ -92,7 +92,7 @@ export function SectionHeading({
     <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div>
         {eyebrow ? (
-          <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-muted">
+          <p className="text-[11px] font-medium text-muted">
             {eyebrow}
           </p>
         ) : null}
@@ -126,7 +126,7 @@ export function SourceLinks({
           target="_blank"
           rel="noreferrer noopener"
           className={`inline-flex items-center gap-1 text-muted transition-colors hover:text-fog ${
-            compact ? "text-[10.5px]" : "text-[11.5px]"
+            compact ? "text-[11px]" : "text-[11.5px]"
           }`}
         >
           <span
@@ -134,7 +134,7 @@ export function SourceLinks({
             className="h-1 w-1 rounded-full bg-current opacity-60"
           />
           {source.name}
-          <span aria-hidden="true" className="text-[9px] opacity-60">
+          <span aria-hidden="true" className="text-[11px] opacity-60">
             ↗
           </span>
         </a>
@@ -219,10 +219,10 @@ export function QuickLink({
   return (
     <Link
       href={href}
-      className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-3.5 py-1.5 text-[12px] text-fog/90 transition-colors hover:border-signal/40 hover:text-signal"
+      className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-line bg-surface px-3.5 py-1.5 text-[12px] text-fog/90 transition-colors hover:border-signal/40 hover:text-signal"
     >
       {children}
-      <span aria-hidden="true" className="text-[10px]">
+      <span aria-hidden="true" className="text-[11px]">
         →
       </span>
     </Link>

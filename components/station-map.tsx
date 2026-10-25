@@ -169,7 +169,7 @@ export function StationMap({ stations, selectedId, onSelect }: {
       </div>
       <div className="flex flex-wrap gap-x-3 gap-y-1 border-t border-line px-3 py-2">
         {[...CATEGORIES, categoryStyle("unavailable")].map((category) => (
-          <span key={category.label} className="inline-flex items-center gap-1.5 text-[9px] text-muted">
+          <span key={category.label} className="inline-flex items-center gap-1.5 text-[11px] text-muted">
             <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: category.hex }} />
             {category.label}
           </span>

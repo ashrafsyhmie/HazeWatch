@@ -16,7 +16,6 @@
   --color-very-unhealthy: #a92f3b;
   --color-hazardous: #773286;
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
   --radius-panel: 1.25rem;
 }
 
@@ -29,6 +28,7 @@
     background-color: var(--color-ink);
     color: var(--color-fog);
     font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+    font-variant-numeric: tabular-nums;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -41,11 +41,25 @@
     outline: 2px solid var(--color-signal);
     outline-offset: 2px;
   }
+
+  a,
+  button,
+  input,
+  select {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: color-mix(in oklab, var(--color-signal) 18%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-spin {
+      animation: none;
+    }
+  }
 }
 
 @layer utilities {
   .num {
-    font-family: var(--font-geist-mono), ui-monospace, monospace;
+    font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.03em;
   }
@@ -87,7 +101,7 @@
   border: 1px solid currentColor;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.96);
-  font: 600 12px var(--font-geist-mono), monospace;
+  font: 600 12px var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   box-shadow: 0 3px 12px rgba(19, 53, 76, 0.2);
   cursor: pointer;
 }

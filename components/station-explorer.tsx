@@ -93,11 +93,13 @@ export function StationExplorer({
                 </svg>
                 <input
                   id="station-search"
+                  name="station-query"
                   type="search"
+                  autoComplete="off"
                   value={query}
                 onChange={(event) => { setQuery(event.target.value); setSelectedId(null); }}
-                  placeholder="Search station or state"
-                  className="w-full rounded-lg border border-line bg-ink/60 py-2 pl-8 pr-3 text-[12.5px] text-fog placeholder:text-muted/70 focus:border-signal/50 focus:outline-none"
+                  placeholder="Search station or state…"
+                  className="min-h-11 w-full rounded-lg border border-line bg-ink/60 py-2 pl-8 pr-3 text-[12.5px] text-fog placeholder:text-muted/70 focus:border-signal/50 focus:outline-none"
                 />
               </div>
               <label htmlFor="station-state" className="sr-only">
@@ -105,9 +107,10 @@ export function StationExplorer({
               </label>
               <select
                 id="station-state"
+                name="station-state"
                 value={state}
                 onChange={(event) => { setState(event.target.value); setSelectedId(null); }}
-                className="max-w-[124px] rounded-lg border border-line bg-ink/60 px-2 py-2 text-[12px] text-muted focus:border-signal/50 focus:outline-none"
+                className="min-h-11 max-w-[124px] rounded-lg border border-line bg-ink/60 px-2 py-2 text-[12px] text-muted focus:border-signal/50 focus:outline-none"
               >
                 <option value="all">All states</option>
                 {states.map((name) => (
@@ -120,7 +123,7 @@ export function StationExplorer({
           </div>
 
           <div className="flex items-center justify-between gap-2 border-b border-line/70 px-3 py-2">
-            <p aria-live="polite" className="text-[10px] uppercase tracking-[0.14em] text-muted">
+            <p aria-live="polite" className="text-[11px] text-muted">
               {filtered.length} of {stations.length} stations
             </p>
             <div
@@ -132,7 +135,7 @@ export function StationExplorer({
                 type="button"
                 aria-pressed={sort === "api"}
                 onClick={() => setSort("api")}
-                className={`rounded-full px-2.5 py-1 text-[10px] uppercase tracking-[0.1em] transition-colors ${
+                className={`min-h-11 rounded-full px-2.5 py-1 text-[11px] transition-colors ${
                   sort === "api" ? "bg-white/[0.08] text-fog" : "text-muted hover:text-fog"
                 }`}
               >
@@ -142,7 +145,7 @@ export function StationExplorer({
                 type="button"
                 aria-pressed={sort === "name"}
                 onClick={() => setSort("name")}
-                className={`rounded-full px-2.5 py-1 text-[10px] uppercase tracking-[0.1em] transition-colors ${
+                className={`min-h-11 rounded-full px-2.5 py-1 text-[11px] transition-colors ${
                   sort === "name" ? "bg-white/[0.08] text-fog" : "text-muted hover:text-fog"
                 }`}
               >
@@ -156,11 +159,11 @@ export function StationExplorer({
               <section aria-label="Selected station details">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <p className="text-[10px] uppercase tracking-widest text-signal">Selected station</p>
+                    <p className="text-[11px] text-signal">Selected station</p>
                     <h3 className="mt-1 text-sm font-medium">{selectedStation.name}</h3>
                     <p className="mt-1 text-xs text-muted">{selectedStation.state}</p>
                   </div>
-                  <button type="button" onClick={() => setSelectedId(null)} aria-label="Close station details" className="rounded-lg px-3 py-2 text-muted hover:text-fog">×</button>
+                  <button type="button" onClick={() => setSelectedId(null)} aria-label="Close station details" className="size-11 rounded-lg text-muted hover:text-fog">×</button>
                 </div>
                 <p className="mt-3 text-sm" style={{ color: categoryStyle(selectedStation.api === null ? "unavailable" : selectedStation.category).hex }}>
                   <span className="num text-2xl">{selectedStation.api ?? "—"}</span> · {selectedStation.api === null ? "No reading" : `API · ${categoryStyle(selectedStation.category).label}`}
@@ -199,7 +202,7 @@ export function StationExplorer({
                   const style = categoryStyle(station.category);
                   const selected = station.id === selectedId;
                   return (
-                    <li key={station.id}>
+                    <li key={station.id} className="[content-visibility:auto] [contain-intrinsic-size:0_58px]">
                       <button
                         type="button"
                         onClick={() => setSelectedId(station.id)}
@@ -218,13 +221,13 @@ export function StationExplorer({
                           <span className="block truncate text-[12.5px] font-medium text-fog">
                             {station.shortName}
                           </span>
-                          <span className="mt-0.5 block truncate text-[10.5px] text-muted">
+                          <span className="mt-0.5 block truncate text-[11px] text-muted">
                             {station.state} · {station.time} MYT
                             {station.freshness !== "Current" && station.api !== null
                               ? ` · ${station.freshness}`
                               : ""}
                           </span>
-                          <span className="mt-1 block text-[10px]" style={{ color: style.hex }}>{style.label}</span>
+                          <span className="mt-1 block text-[11px]" style={{ color: style.hex }}>{style.label}</span>
                         </span>
                         {station.spark.length > 1 ? (
                           <Sparkline values={station.spark} color={style.hex} />

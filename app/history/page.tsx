@@ -48,7 +48,7 @@ export default async function HistoryPage() {
       <section className="mx-auto w-full max-w-[1240px] px-5 pb-8 pt-10 sm:px-8 sm:pt-14">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-signal/80">
+            <p className="text-[11px] font-medium text-signal/80">
               Long-run context
             </p>
             <h1 className="mt-3 text-4xl font-medium tracking-[-0.045em] text-fog sm:text-[52px]">
@@ -70,20 +70,20 @@ export default async function HistoryPage() {
           </div>
 
           <div className="panel w-full px-5 py-4 sm:w-[300px]">
-            <p className="text-[9.5px] uppercase tracking-[0.16em] text-muted">
+            <p className="text-[11px] text-muted">
               Catalogue coverage
             </p>
             <p className="num mt-2 text-[15px] text-fog">
               {formatMonth(first)} — {formatMonth(last)}
             </p>
-            <p className="mt-1 text-[10px] text-muted">
+            <p className="mt-1 text-[11px] text-muted">
               {months.length} monthly records · Malaysia
             </p>
             <a
               href={SOURCES[2].url}
               target="_blank"
               rel="noreferrer noopener"
-              className="mt-3 inline-flex items-center gap-1 text-[10.5px] text-muted hover:text-signal"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] text-muted hover:text-signal"
             >
               OpenDOSM source ↗
             </a>
@@ -93,13 +93,13 @@ export default async function HistoryPage() {
         <div className="mt-8 grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-6">
           {ordered.map((item) => (
             <div key={item.key} className="panel px-4 py-3.5">
-              <p className="text-[9.5px] font-medium uppercase tracking-[0.12em] text-muted">
+              <p className="text-[11px] font-medium text-muted">
                 {item.label}
               </p>
               <p className="num mt-2 text-[24px] font-semibold leading-none tracking-[-0.04em] text-fog">
                 {item.value}
               </p>
-              <p className="mt-1.5 text-[9.5px] text-muted">
+              <p className="mt-1.5 text-[11px] text-muted">
                 {item.unit} · {formatMonth(item.month)}
               </p>
             </div>
@@ -118,14 +118,14 @@ export default async function HistoryPage() {
           <section className="panel p-5 sm:p-6">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
+                <p className="text-[11px] font-medium text-muted">
                   Particulates
                 </p>
                 <h2 className="mt-1.5 text-[15px] font-medium text-fog">
                   PM2.5 and PM10
                 </h2>
               </div>
-              <span className="rounded-full border border-line bg-white/[0.03] px-2.5 py-1 text-[9.5px] uppercase tracking-[0.1em] text-muted">
+              <span className="rounded-full border border-line bg-white/[0.03] px-2.5 py-1 text-[11px] text-muted">
                 µg/m³
               </span>
             </div>
@@ -142,14 +142,14 @@ export default async function HistoryPage() {
           <section className="panel p-5 sm:p-6">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
+                <p className="text-[11px] font-medium text-muted">
                   Gases
                 </p>
                 <h2 className="mt-1.5 text-[15px] font-medium text-fog">
                   O₃, NO₂, SO₂ and CO
                 </h2>
               </div>
-              <span className="rounded-full border border-line bg-white/[0.03] px-2.5 py-1 text-[9.5px] uppercase tracking-[0.1em] text-muted">
+              <span className="rounded-full border border-line bg-white/[0.03] px-2.5 py-1 text-[11px] text-muted">
                 ppm
               </span>
             </div>
@@ -231,7 +231,7 @@ export default async function HistoryPage() {
         </div>
 
         <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
-          <p className="max-w-lg text-[10px] leading-relaxed text-muted">
+          <p className="max-w-lg text-[11px] leading-relaxed text-muted">
             Gaps in a line are missing catalogue values, not zeroes. The chart
             never interpolates across a missing month.
           </p>

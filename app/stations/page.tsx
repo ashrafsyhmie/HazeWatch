@@ -39,7 +39,7 @@ export default async function StationsPage() {
       <section className="mx-auto w-full max-w-[1240px] px-5 pb-8 pt-10 sm:px-8 sm:pt-14">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-signal/80">
+            <p className="text-[11px] font-medium text-signal/80">
               Station index
             </p>
             <h1 className="mt-3 text-4xl font-medium tracking-[-0.045em] text-fog sm:text-[52px]">
@@ -55,7 +55,7 @@ export default async function StationsPage() {
 
           <div className="grid grid-cols-3 gap-2.5 lg:w-[360px]">
             <div className="panel px-3.5 py-3">
-              <p className="text-[9px] uppercase tracking-[0.14em] text-muted">
+              <p className="text-[11px] text-muted">
                 Stations
               </p>
               <p className="num mt-1.5 text-[20px] font-medium text-fog">
@@ -63,7 +63,7 @@ export default async function StationsPage() {
               </p>
             </div>
             <div className="panel px-3.5 py-3">
-              <p className="text-[9px] uppercase tracking-[0.14em] text-muted">
+              <p className="text-[11px] text-muted">
                 Reporting
               </p>
               <p className="num mt-1.5 text-[20px] font-medium text-fog">
@@ -71,7 +71,7 @@ export default async function StationsPage() {
               </p>
             </div>
             <div className="panel px-3.5 py-3">
-              <p className="text-[9px] uppercase tracking-[0.14em] text-muted">
+              <p className="text-[11px] text-muted">
                 Hour
               </p>
               <p className="num mt-1.5 truncate text-[20px] font-medium text-fog">
@@ -94,7 +94,7 @@ export default async function StationsPage() {
         />
         <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
           <SourceLinks sources={[SOURCES[0]]} compact />
-          <p className="text-[10px] text-muted">
+          <p className="text-[11px] text-muted">
             Coordinates are the stations&apos; published APIMS positions.
           </p>
         </div>
@@ -116,7 +116,7 @@ export default async function StationsPage() {
                   <h3 className="truncate text-[12.5px] font-medium text-fog">
                     {state.state}
                   </h3>
-                  <span className="shrink-0 text-[9.5px] text-muted">
+                  <span className="shrink-0 text-[11px] text-muted">
                     {state.reporting}/{state.total}
                   </span>
                 </div>
@@ -136,7 +136,7 @@ export default async function StationsPage() {
                   ) : null}
                 </div>
 
-                <p className="mt-1.5 truncate text-[10px] text-muted">
+                <p className="mt-1.5 truncate text-[11px] text-muted">
                   {state.highest
                     ? state.highest.name.split(",")[0]
                     : "No comparable reading"}

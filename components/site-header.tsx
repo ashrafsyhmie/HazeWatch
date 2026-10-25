@@ -47,7 +47,7 @@ export function SiteHeader() {
               <span className="text-[15px] font-semibold tracking-tight text-fog">
                 HazeWatch
               </span>
-              <span className="rounded border border-line px-1 py-0.5 text-[9px] font-medium uppercase tracking-[0.14em] text-muted">
+              <span className="rounded border border-line px-1 py-0.5 text-[11px] font-medium text-muted">
                 MY
               </span>
             </span>
@@ -55,7 +55,7 @@ export function SiteHeader() {
 
           <div className="flex items-center gap-2 lg:hidden">
             <span className="h-1.5 w-1.5 rounded-full bg-good" />
-            <span className="text-[10px] uppercase tracking-[0.16em] text-muted">
+            <span className="text-[11px] text-muted">
               APIMS
             </span>
           </div>
@@ -73,7 +73,7 @@ export function SiteHeader() {
                 href={item.href}
                 prefetch={true}
                 aria-current={active ? "page" : undefined}
-                className={`whitespace-nowrap rounded-full px-3 py-1.5 text-[13px] transition-colors ${
+                className={`inline-flex min-h-11 items-center whitespace-nowrap rounded-full px-3 py-1.5 text-[13px] transition-colors ${
                   active
                     ? "bg-white/[0.07] text-fog"
                     : "text-muted hover:bg-white/[0.04] hover:text-fog"
@@ -88,7 +88,7 @@ export function SiteHeader() {
         <div className="hidden items-center gap-3 lg:flex">
           <span className="flex items-center gap-2 rounded-full border border-line bg-surface px-2.5 py-1">
               <span className="inline-flex h-1.5 w-1.5 rounded-full bg-good" />
-            <span className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted">
+            <span className="text-[11px] font-medium text-muted">
               APIMS · MYT
             </span>
           </span>

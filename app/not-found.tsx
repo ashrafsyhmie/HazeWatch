@@ -4,7 +4,7 @@ export default function NotFound() {
   return (
     <div className="mx-auto w-full max-w-[720px] px-5 py-24 text-center sm:px-8">
       <div className="panel px-6 py-12 sm:px-10">
-        <p className="num text-[11px] uppercase tracking-[0.2em] text-muted">
+        <p className="num text-[11px] text-muted">
           404
         </p>
         <h1 className="mt-3 text-2xl font-medium tracking-[-0.03em] text-fog">

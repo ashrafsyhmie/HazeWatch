@@ -50,12 +50,12 @@ function SnapshotStat({
 }) {
   return (
     <div className="min-w-0">
-      <p className="text-[9px] font-medium uppercase tracking-[0.14em] text-muted">
+      <p className="text-[11px] font-medium text-muted">
         {label}
       </p>
       <p className="num mt-1 truncate text-[15px] font-medium text-fog">{value}</p>
       {sub ? (
-        <p className="mt-0.5 truncate text-[9.5px] text-muted">{sub}</p>
+        <p className="mt-0.5 truncate text-[11px] text-muted">{sub}</p>
       ) : null}
     </div>
   );
@@ -115,7 +115,7 @@ export default async function OverviewPage() {
       <section className="mx-auto w-full max-w-[1240px] px-5 pb-6 pt-8 sm:px-8 sm:pt-10">
         <div className="grid gap-6 md:grid-cols-[1.2fr_0.92fr] md:items-stretch">
           <div>
-            <h1 className="text-balance text-[30px] font-semibold leading-tight tracking-[-0.035em] text-fog sm:text-[38px]">
+            <h1 className="text-balance text-[28px] font-semibold leading-tight tracking-[-0.035em] text-fog sm:text-[32px]">
               Air quality across Malaysia
             </h1>
             <p className="mt-3 max-w-[520px] text-[13px] leading-relaxed text-muted sm:text-[14px]">
@@ -133,7 +133,7 @@ export default async function OverviewPage() {
 
           <div className="panel p-4 sm:p-5">
             <div className="flex items-center justify-between gap-3">
-              <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
+              <p className="text-[11px] font-medium text-muted">
                 National snapshot
               </p>
               <FreshnessBadge freshness={snapshot.freshness} />
@@ -194,7 +194,7 @@ export default async function OverviewPage() {
                 {CATEGORIES.map((category) => (
                   <span
                     key={category.key}
-                    className="inline-flex items-center gap-1.5 text-[9.5px] text-muted"
+                    className="inline-flex items-center gap-1.5 text-[11px] text-muted"
                   >
                     <span
                       className="h-1.5 w-1.5 rounded-full"
@@ -206,7 +206,7 @@ export default async function OverviewPage() {
               </div>
             </div>
 
-            <p className="mt-3 text-[9.5px] leading-relaxed text-muted">
+            <p className="mt-3 text-[11px] leading-relaxed text-muted">
               {latestLabel}. Stations reporting a different hour are excluded
               from this snapshot, so the median is always like-for-like.
             </p>
@@ -226,7 +226,7 @@ export default async function OverviewPage() {
         </div>
         <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
           <SourceLinks sources={[SOURCES[0]]} compact />
-          <p className="text-[10px] text-muted">Published APIMS station coordinates · Updated {latestLabel}</p>
+          <p className="text-[11px] text-muted">Published APIMS station coordinates · Updated {latestLabel}</p>
         </div>
         <div className="mt-4 empty:hidden">
           <PreferredStationCard candidates={pinnedCandidates} />
@@ -259,7 +259,7 @@ export default async function OverviewPage() {
           <div className="panel mt-5 p-5 sm:p-6">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
-                <p className="text-[10px] uppercase tracking-[0.18em] text-muted">Station spotlight · Highest in this snapshot</p>
+                <p className="text-[11px] text-muted">Station spotlight · Highest in this snapshot</p>
                 <h3 className="mt-2 text-lg font-medium">{shortName(highest.name)} <span className="text-sm font-normal text-muted">· {highest.stateName}</span></h3>
                 <p className="mt-1 text-xs text-muted">Latest {Math.min(highest.series.length, 24)} available readings · API · MYT</p>
               </div>
@@ -274,13 +274,13 @@ export default async function OverviewPage() {
             </div>
           </div>
         ) : null}
-        <div className="mt-5 grid gap-3 lg:grid-cols-2">
+        <div className="mt-5 grid items-start gap-3 lg:grid-cols-2">
           <div className="panel p-5 sm:p-6">
             <div className="flex items-center justify-between gap-3">
               <h3 className="text-[13px] font-medium text-fog">
                  Worsening-condition watch
               </h3>
-              <span className="text-[9.5px] uppercase tracking-[0.12em] text-muted">
+              <span className="text-[11px] text-muted">
                 Last 6h
               </span>
             </div>
@@ -307,7 +307,7 @@ export default async function OverviewPage() {
                         <span className="block truncate text-[12.5px] font-medium text-fog group-hover:text-signal">
                           {shortName(insight.name)}
                         </span>
-                        <span className="mt-0.5 block truncate text-[10.5px] text-muted">
+                        <span className="mt-0.5 block truncate text-[11px] text-muted">
                           {insight.stateName} · {insight.previous} → {insight.latest}
                         </span>
                       </span>
@@ -318,7 +318,7 @@ export default async function OverviewPage() {
               </ul>
             )}
 
-            <p className="mt-4 border-t border-line/60 pt-3 text-[9.5px] leading-relaxed text-muted">
+            <p className="mt-4 border-t border-line/60 pt-3 text-[11px] leading-relaxed text-muted">
               This is an observation of recent change, not a forecast or an
               official warning. A rise can reverse in the next hour.
             </p>
@@ -337,20 +337,20 @@ export default async function OverviewPage() {
           title="Official forecasts and long-run context"
           description="Two different products, kept separate on purpose: official MyCMAQ map forecasts and OpenDOSM's national monthly history."
         />
-        <div className="mt-5 grid gap-3 lg:grid-cols-2">
+        <div className="mt-5 grid items-start gap-3 lg:grid-cols-2">
           <ForecastPanel status={forecast} />
 
-          <section className="panel flex h-full flex-col p-5 sm:p-6">
+          <section className="panel flex flex-col p-5 sm:p-6">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
+                <p className="text-[11px] font-medium text-muted">
                   National history · separate source
                 </p>
                 <h2 className="mt-1.5 text-[15px] font-medium text-fog">
                   Monthly particulate context
                 </h2>
               </div>
-              <span className="shrink-0 rounded-full border border-line bg-white/[0.03] px-2.5 py-1 text-[9.5px] font-medium uppercase tracking-[0.12em] text-muted">
+              <span className="shrink-0 rounded-full border border-line bg-white/[0.03] px-2.5 py-1 text-[11px] font-medium text-muted">
                 OpenDOSM
               </span>
             </div>
@@ -371,16 +371,16 @@ export default async function OverviewPage() {
 
             <div className="mt-4 flex flex-wrap items-end justify-between gap-3 border-t border-line/60 pt-3">
               <div>
-                <p className="text-[9.5px] uppercase tracking-[0.14em] text-muted">
+                <p className="text-[11px] text-muted">
                   Latest monthly PM2.5
                 </p>
                 <p className="mt-1 flex items-baseline gap-2">
                   <span className="num text-[19px] font-medium text-fog">
                     {pm25 ? pm25.value : "—"}
                   </span>
-                  <span className="text-[10px] text-muted">µg/m³</span>
+                  <span className="text-[11px] text-muted">µg/m³</span>
                   {pm25 ? (
-                    <span className="text-[10px] text-muted">
+                    <span className="text-[11px] text-muted">
                       {formatMonth(pm25.month)}
                     </span>
                   ) : null}
@@ -390,7 +390,7 @@ export default async function OverviewPage() {
             </div>
 
             {monthly.notice ? (
-              <p className="mt-3 text-[10px] leading-relaxed text-moderate/90">
+              <p className="mt-3 text-[11px] leading-relaxed text-moderate/90">
                 {monthly.notice}
               </p>
             ) : null}

@@ -54,11 +54,11 @@ function Stat({
 }) {
   return (
     <div>
-      <p className="text-[9px] font-medium uppercase tracking-[0.14em] text-muted">
+      <p className="text-[11px] font-medium text-muted">
         {label}
       </p>
       <p className="num mt-1 text-[16px] font-medium text-fog">{value}</p>
-      {hint ? <p className="mt-0.5 text-[9.5px] text-muted">{hint}</p> : null}
+      {hint ? <p className="mt-0.5 text-[11px] text-muted">{hint}</p> : null}
     </div>
   );
 }
@@ -103,7 +103,7 @@ export default async function StationPage({ params }: PageParams) {
   return (
     <div className="pb-6">
       <section className="mx-auto w-full max-w-[1240px] px-5 pt-8 sm:px-8 sm:pt-10">
-        <p className="flex items-center gap-2 text-[10.5px] uppercase tracking-[0.16em] text-muted">
+        <p className="flex items-center gap-2 text-[11px] text-muted">
           <Link href="/stations" className="hover:text-fog">
             Stations
           </Link>
@@ -125,7 +125,7 @@ export default async function StationPage({ params }: PageParams) {
           </div>
           <div className="flex flex-wrap items-center gap-2">
             {!comparable ? (
-              <span className="rounded-full border border-line bg-white/[0.03] px-2.5 py-1 text-[10px] uppercase tracking-[0.1em] text-muted">
+              <span className="rounded-full border border-line bg-white/[0.03] px-2.5 py-1 text-[11px] text-muted">
                 Not in latest hour
               </span>
             ) : null}
@@ -144,10 +144,10 @@ export default async function StationPage({ params }: PageParams) {
         <div className="mt-7 grid gap-3 lg:grid-cols-[0.78fr_1.22fr]">
           <div className="panel p-5 sm:p-6">
             <div className="flex items-center justify-between gap-3">
-              <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
+              <p className="text-[11px] font-medium text-muted">
                 Latest observation
               </p>
-              <span className="text-[9.5px] uppercase tracking-[0.12em] text-muted">
+              <span className="text-[11px] text-muted">
                 MY-API
               </span>
             </div>
@@ -161,7 +161,7 @@ export default async function StationPage({ params }: PageParams) {
               </span>
               <div className="pb-1.5">
                 <CategoryBadge category={station.category} />
-                <p className="mt-2 text-[10px] text-muted">Air Pollutant Index</p>
+                <p className="mt-2 text-[11px] text-muted">Air Pollutant Index</p>
               </div>
             </div>
 
@@ -172,7 +172,7 @@ export default async function StationPage({ params }: PageParams) {
 
             <div className="mt-5 flex items-center justify-between gap-3 rounded-xl border border-line/70 bg-ink/40 px-3.5 py-3">
               <div>
-                <p className="text-[9px] uppercase tracking-[0.14em] text-muted">
+                <p className="text-[11px] text-muted">
                   {station.trend.comparisonHours}-hour change
                 </p>
                 <p className="num mt-1 text-[12px] text-fog">
@@ -211,14 +211,14 @@ export default async function StationPage({ params }: PageParams) {
           <div className="panel p-5 sm:p-6">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
-                <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
+                <p className="text-[11px] font-medium text-muted">
                   Recent series
                 </p>
                 <h2 className="mt-1.5 text-[15px] font-medium text-fog">
                   Hourly API, Malaysia time
                 </h2>
               </div>
-              <span className="rounded-full border border-line bg-white/[0.03] px-2.5 py-1 text-[9.5px] uppercase tracking-[0.1em] text-muted">
+              <span className="rounded-full border border-line bg-white/[0.03] px-2.5 py-1 text-[11px] text-muted">
                 {series.length} points
               </span>
             </div>
@@ -227,7 +227,7 @@ export default async function StationPage({ params }: PageParams) {
               <TrendChart points={series} color={style.hex} height={264} />
             </div>
 
-            <p className="mt-3 border-t border-line/60 pt-3 text-[10px] leading-relaxed text-muted">
+            <p className="mt-3 border-t border-line/60 pt-3 text-[11px] leading-relaxed text-muted">
               {station.trend.reason}
             </p>
           </div>
@@ -247,7 +247,7 @@ export default async function StationPage({ params }: PageParams) {
 
         <div className="mt-3 grid gap-3 lg:grid-cols-2">
           <section className="panel flex h-full flex-col p-5 sm:p-6">
-            <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
+            <p className="text-[11px] font-medium text-muted">
               HazeWatch analysis
             </p>
             <h2 className="mt-1.5 text-[15px] font-medium text-fog">
@@ -315,7 +315,7 @@ export default async function StationPage({ params }: PageParams) {
 
         <div className="mt-3 grid gap-3 lg:grid-cols-2">
           <section className="panel p-5 sm:p-6">
-            <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
+            <p className="text-[11px] font-medium text-muted">
               Station record
             </p>
             <h2 className="mt-1.5 text-[15px] font-medium text-fog">
@@ -340,14 +340,14 @@ export default async function StationPage({ params }: PageParams) {
                   key={label}
                   className="flex items-baseline justify-between gap-4 border-b border-line/50 pb-2.5 last:border-0 last:pb-0"
                 >
-                  <dt className="text-[10.5px] uppercase tracking-[0.1em] text-muted">
+                  <dt className="text-[11px] text-muted">
                     {label}
                   </dt>
                   <dd className="text-right text-[11.5px] text-fog/85">{value}</dd>
                 </div>
               ))}
             </dl>
-            <p className="mt-4 text-[10px] leading-relaxed text-muted">
+            <p className="mt-4 text-[11px] leading-relaxed text-muted">
               Timestamps are normalised from APIMS Malaysia wall-clock values to
               UTC for storage and shown here in Malaysia time. The source&apos;s
               epoch field is not treated as the observation instant.
@@ -357,7 +357,7 @@ export default async function StationPage({ params }: PageParams) {
           <section className="panel p-5 sm:p-6">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
+                <p className="text-[11px] font-medium text-muted">
                   Nearest stations
                 </p>
                 <h2 className="mt-1.5 text-[15px] font-medium text-fog">
@@ -366,7 +366,7 @@ export default async function StationPage({ params }: PageParams) {
               </div>
               <Link
                 href="/stations"
-                className="shrink-0 text-[10.5px] text-muted hover:text-signal"
+                className="shrink-0 text-[11px] text-muted hover:text-signal"
               >
                 Index →
               </Link>
@@ -390,7 +390,7 @@ export default async function StationPage({ params }: PageParams) {
                         <span className="block truncate text-[12px] font-medium text-fog group-hover:text-signal">
                           {neighbour.name.split(",")[0]}
                         </span>
-                        <span className="mt-0.5 block text-[10px] text-muted">
+                        <span className="mt-0.5 block text-[11px] text-muted">
                           {neighbour.stateName} · {km.toFixed(0)} km away
                         </span>
                       </span>
@@ -415,7 +415,7 @@ export default async function StationPage({ params }: PageParams) {
           >
             ← All stations
           </Link>
-          <p className="max-w-lg text-right text-[10px] leading-relaxed text-muted">
+          <p className="max-w-lg text-right text-[11px] leading-relaxed text-muted">
             Official forecast products for this period are published separately
             by MetMalaysia. HazeWatch does not derive numeric forecasts from map
             images.

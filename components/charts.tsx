@@ -70,7 +70,7 @@ export function TrendChart({
           />
           <XAxis
             dataKey="label"
-             tick={{ fill: "#607895", fontSize: 10 }}
+             tick={{ fill: "#607895", fontSize: 11 }}
             tickLine={false}
             axisLine={false}
             minTickGap={28}
@@ -79,14 +79,14 @@ export function TrendChart({
           <YAxis
             domain={[0, upper]}
             ticks={[0, 50, 100, 200].filter((tick) => tick <= upper)}
-             tick={{ fill: "#607895", fontSize: 10 }}
+             tick={{ fill: "#607895", fontSize: 11 }}
             tickLine={false}
             axisLine={false}
             width={44}
           />
           <Tooltip
             contentStyle={TOOLTIP_STYLE}
-             labelStyle={{ color: "#607895", fontSize: 10 }}
+             labelStyle={{ color: "#607895", fontSize: 11 }}
             labelFormatter={(_label, payload) =>
               payload?.[0]?.payload?.full ?? String(_label)
             }
@@ -151,25 +151,25 @@ export function MonthlyChart({
           <CartesianGrid stroke="#dbe7ef" strokeDasharray="2 6" vertical={false} />
           <XAxis
             dataKey="label"
-             tick={{ fill: "#607895", fontSize: 10 }}
+             tick={{ fill: "#607895", fontSize: 11 }}
             tickLine={false}
             axisLine={false}
             minTickGap={36}
             interval="preserveStartEnd"
           />
           <YAxis
-             tick={{ fill: "#607895", fontSize: 10 }}
+             tick={{ fill: "#607895", fontSize: 11 }}
             tickLine={false}
             axisLine={false}
             width={46}
           />
           <Tooltip
             contentStyle={TOOLTIP_STYLE}
-             labelStyle={{ color: "#607895", fontSize: 10 }}
+             labelStyle={{ color: "#607895", fontSize: 11 }}
             formatter={(value) => [`${String(value)} ${unit}`, ""]}
           />
           <Legend
-             wrapperStyle={{ fontSize: 10.5, color: "#607895", paddingTop: 8 }}
+             wrapperStyle={{ fontSize: 11, color: "#607895", paddingTop: 8 }}
             iconType="plainline"
           />
           {series.map((item) => (

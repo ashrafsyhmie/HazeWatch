@@ -34,7 +34,7 @@ function Section({
 }) {
   return (
     <section id={id} className="scroll-mt-28 border-t border-line/70 pt-8 first:border-0 first:pt-0">
-      <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
+      <p className="text-[11px] font-medium text-muted">
         {eyebrow}
       </p>
       <h2 className="mt-2 text-[22px] font-medium tracking-[-0.03em] text-fog">
@@ -58,7 +58,7 @@ function StatusPill({ status }: { status: string }) {
           : "border-line bg-white/[0.03] text-muted";
   return (
     <span
-      className={`inline-flex rounded-full border px-2 py-0.5 text-[9px] font-medium uppercase tracking-[0.1em] ${style}`}
+      className={`inline-flex rounded-full border px-2 py-0.5 text-[11px] font-medium ${style}`}
     >
       {status}
     </span>
@@ -71,7 +71,7 @@ export default async function MethodologyPage() {
   return (
     <div className="pb-6">
       <section className="mx-auto w-full max-w-[1240px] px-5 pt-10 sm:px-8 sm:pt-14">
-        <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-signal/80">
+        <p className="text-[11px] font-medium text-signal/80">
           Method &amp; limits
         </p>
         <h1 className="mt-3 max-w-3xl text-4xl font-medium leading-[1.04] tracking-[-0.045em] text-fog sm:text-[52px]">
@@ -88,7 +88,7 @@ export default async function MethodologyPage() {
       <div className="mx-auto mt-10 grid w-full max-w-[1240px] gap-10 px-5 sm:px-8 lg:grid-cols-[200px_1fr]">
         <nav aria-label="On this page" className="hidden lg:block">
           <div className="sticky top-24">
-            <p className="text-[9.5px] font-medium uppercase tracking-[0.16em] text-muted">
+            <p className="text-[11px] font-medium text-muted">
               On this page
             </p>
             <ul className="mt-3 space-y-1.5">
@@ -114,7 +114,7 @@ export default async function MethodologyPage() {
           >
             <div className="grid gap-2.5 sm:grid-cols-3">
               <div className="rounded-xl border border-line/70 bg-surface-2/60 p-4">
-                <p className="text-[10px] uppercase tracking-[0.12em] text-good">
+                <p className="text-[11px] text-good">
                   Observation
                 </p>
                 <p className="mt-2 text-[11.5px] leading-relaxed text-fog/70">
@@ -123,7 +123,7 @@ export default async function MethodologyPage() {
                 </p>
               </div>
               <div className="rounded-xl border border-line/70 bg-surface-2/60 p-4">
-                <p className="text-[10px] uppercase tracking-[0.12em] text-ember">
+                <p className="text-[11px] text-ember">
                   Official forecast
                 </p>
                 <p className="mt-2 text-[11.5px] leading-relaxed text-fog/70">
@@ -132,7 +132,7 @@ export default async function MethodologyPage() {
                 </p>
               </div>
               <div className="rounded-xl border border-line/70 bg-surface-2/60 p-4">
-                <p className="text-[10px] uppercase tracking-[0.12em] text-signal">
+                <p className="text-[11px] text-signal">
                   HazeWatch insight
                 </p>
                 <p className="mt-2 text-[11.5px] leading-relaxed text-fog/70">
@@ -155,7 +155,7 @@ export default async function MethodologyPage() {
           >
             <div className="overflow-hidden rounded-xl border border-line/70">
               <table className="w-full text-left text-[11.5px]">
-                <thead className="bg-white/[0.03] text-[9.5px] uppercase tracking-[0.12em] text-muted">
+                <thead className="bg-white/[0.03] text-[11px] text-muted">
                   <tr>
                     <th className="px-4 py-2.5 font-medium">Band</th>
                     <th className="px-4 py-2.5 font-medium">API range</th>
@@ -287,7 +287,7 @@ export default async function MethodologyPage() {
                       href={source.url}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="text-[10px] text-muted hover:text-signal"
+                      className="text-[11px] text-muted hover:text-signal"
                     >
                       Source ↗
                     </a>
@@ -412,10 +412,10 @@ export default async function MethodologyPage() {
 
             <div className="rounded-xl border border-line/70">
               <div className="flex items-center justify-between gap-2 border-b border-line/60 px-4 py-2.5">
-                <p className="text-[10px] uppercase tracking-[0.12em] text-muted">
+                <p className="text-[11px] text-muted">
                   Recent collection runs
                 </p>
-                <p className="text-[9.5px] text-muted">Server-side log</p>
+                <p className="text-[11px] text-muted">Server-side log</p>
               </div>
               {runs.length === 0 ? (
                 <p className="px-4 py-4 text-[11px] text-muted">
@@ -424,8 +424,8 @@ export default async function MethodologyPage() {
                 </p>
               ) : (
                 <div className="overflow-x-auto">
-                  <table className="w-full text-left text-[10.5px]">
-                    <thead className="bg-white/[0.02] text-[9px] uppercase tracking-[0.1em] text-muted">
+                  <table className="w-full text-left text-[11px]">
+                    <thead className="bg-white/[0.02] text-[11px] text-muted">
                       <tr>
                         <th className="px-4 py-2 font-medium">Source</th>
                         <th className="px-3 py-2 font-medium">Status</th>
