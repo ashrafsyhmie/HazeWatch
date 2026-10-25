@@ -1,26 +1,132 @@
 @import "tailwindcss";
+@import "maplibre-gl/dist/maplibre-gl.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+@theme {
+  --color-ink: #f4f8fb;
+  --color-surface: #ffffff;
+  --color-surface-2: #eef6fa;
+  --color-line: #dbe7ef;
+  --color-fog: #142640;
+  --color-muted: #4c657d;
+  --color-signal: #087b61;
+  --color-ember: #825b08;
+  --color-good: #087a56;
+  --color-moderate: #806000;
+  --color-unhealthy: #a64716;
+  --color-very-unhealthy: #a92f3b;
+  --color-hazardous: #773286;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --radius-panel: 1.25rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    color-scheme: light;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-fog);
+    font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-signal) 30%, transparent);
+    color: var(--color-fog);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 2px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .num {
+    font-family: var(--font-geist-mono), ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.03em;
+  }
+
+  .haze-field {
+    background: #f4f8fb;
+  }
+
+  .panel {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-panel);
+  }
+
+  .scroll-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #c7d8e3 transparent;
+  }
+
+  .scroll-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scroll-thin::-webkit-scrollbar-thumb {
+    background: #c7d8e3;
+    border-radius: 999px;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.station-marker {
+  min-width: 36px;
+  height: 30px;
+  padding: 0 7px;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.96);
+  font: 600 12px var(--font-geist-mono), monospace;
+  box-shadow: 0 3px 12px rgba(19, 53, 76, 0.2);
+  cursor: pointer;
+}
+
+.station-marker[aria-pressed="true"] {
+  outline: 3px solid #e9f1ec;
+  outline-offset: 3px;
+  z-index: 1;
+}
+
+.station-marker:focus-visible {
+  outline: 3px solid var(--color-signal);
+  outline-offset: 3px;
+  z-index: 2;
+}
+
+.maplibregl-ctrl-attrib {
+  color-scheme: light;
+}
+
+.station-popup .maplibregl-popup-content {
+  padding: 18px 30px 18px 18px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(25, 67, 94, 0.18);
+}
+
+.station-popup .maplibregl-popup-close-button {
+  color: var(--color-muted);
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+}
+
+.station-popup.maplibregl-popup-anchor-bottom .maplibregl-popup-tip {
+  border-top-color: var(--color-surface);
+}
+
+.station-popup.maplibregl-popup-anchor-top .maplibregl-popup-tip {
+  border-bottom-color: var(--color-surface);
 }
