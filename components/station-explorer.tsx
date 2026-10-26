@@ -11,9 +11,11 @@ import { StationMap } from "@/components/station-map";
 export function StationExplorer({
   stations,
   initialSelectedId,
+  mapTheme,
 }: {
   stations: ExplorerStation[];
   initialSelectedId?: string;
+  mapTheme?: "pastel";
 }) {
   const [query, setQuery] = useState("");
   const [state, setState] = useState("all");
@@ -61,6 +63,8 @@ export function StationExplorer({
             stations={filtered}
             selectedId={selectedStation?.id ?? null}
             onSelect={setSelectedId}
+            theme={mapTheme}
+            fitToStations={state !== "all" || query.trim().length > 0}
           />
         </div>
 

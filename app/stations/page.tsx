@@ -19,7 +19,7 @@ export const revalidate = 300;
 export const metadata = {
   title: "Stations",
   description:
-    "Every APIMS air-quality station in Malaysia, with current readings, coordinates and recent history.",
+    "Every APIMS air-quality station in Malaysia, mapped across Southeast Asia with current readings, coordinates and recent history.",
 };
 
 export default async function StationsPage() {
@@ -94,7 +94,7 @@ export default async function StationsPage() {
         <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
           <SourceLinks sources={[SOURCES[0]]} compact />
           <p className="text-[11px] text-muted">
-            Coordinates are the stations&apos; published APIMS positions.
+            Map covers Southeast Asia; coordinates are the stations&apos; published APIMS positions.
           </p>
         </div>
       </section>

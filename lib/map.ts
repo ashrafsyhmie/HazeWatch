@@ -6,7 +6,8 @@ export const MAP_PROVIDER = {
   style: "https://tiles.openfreemap.org/styles/positron",
 };
 
-export const MALAYSIA_BOUNDS: LngLatBoundsLike = [[99.5, 0.8], [119.6, 7.5]];
+// ASEAN extent: Myanmar to the Philippines, Timor-Leste to northern Vietnam.
+export const SEA_BOUNDS: LngLatBoundsLike = [[92, -11], [141, 29]];
 
 export function hasMapCoordinates(station: Pick<ExplorerStation, "lat" | "lng">): boolean {
   return Number.isFinite(station.lat) && Number.isFinite(station.lng)

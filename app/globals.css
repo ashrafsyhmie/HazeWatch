@@ -118,6 +118,22 @@
   z-index: 2;
 }
 
+/* Regional overview: dots stay readable, 40px hit area; numbers return when zoomed in. */
+.is-regional .station-marker {
+  min-width: 12px;
+  height: 12px;
+  padding: 0;
+  border-radius: 9999px;
+  background: currentColor;
+  font-size: 0;
+}
+
+.is-regional .station-marker::after {
+  content: "";
+  position: absolute;
+  inset: -14px;
+}
+
 .maplibregl-ctrl-attrib {
   color-scheme: light;
 }
