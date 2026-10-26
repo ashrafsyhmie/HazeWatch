@@ -147,7 +147,7 @@ export function MonthlyChart({
   return (
     <div style={{ height }} className="w-full">
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={rows} margin={{ top: 8, right: 10, bottom: 0, left: -18 }}>
+        <LineChart data={rows} margin={{ top: 8, right: 10, bottom: 0, left: 0 }}>
           <CartesianGrid stroke="#dbe7ef" strokeDasharray="2 6" vertical={false} />
           <XAxis
             dataKey="label"

@@ -109,6 +109,7 @@ The response lists each source with `accepted` and `rejected` counts. The dashbo
 - `forecast_runs` — latest MyCMAQ cycle and manifest summary; unique on `source_id + external_cycle_id`.
 - `monthly_air_pollution` — OpenDOSM monthly rows; unique on source, country, month, pollutant.
 - `ingestion_runs` — one row per source per collection, including failures.
+- `daily_digests` — one summary per Malaysia calendar day, including the facts it was written from.
 
 Public tables have RLS enabled with read-only policies. `ingestion_runs` has no public policy. The service-role key stays server-side.
 
@@ -144,6 +145,43 @@ select cron.schedule(
 ```
 
 `pg_net` stores request headers in a queue; restrict database roles that can read that queue. Collection is bounded and sequential per state to stay gentle on APIMS.
+
+### Daily digest
+
+`/api/digest` writes one summary for the previous Malaysia day. It is protected by the same `CRON_SECRET`. Add a second Supabase Cron entry after the hourly ingestion job:
+
+```sql
+select cron.schedule(
+  'hazewatch-daily-digest',
+  '15 16 * * *', -- 00:15 Malaysia time, just after the day closes
+  $$
+  select net.http_post(
+    url := replace(
+      (select decrypted_secret from vault.decrypted_secrets where name = 'hazewatch_url'),
+      '/api/ingest',
+      '/api/digest'
+    ),
+    headers := jsonb_build_object(
+      'Authorization', 'Bearer ' || (select decrypted_secret from vault.decrypted_secrets where name = 'hazewatch_cron_secret'),
+      'Content-Type', 'application/json'
+    ),
+    body := '{}'::jsonb,
+    timeout_milliseconds := 60000
+  );
+  $$
+);
+```
+
+Rebuild a specific day manually:
+
+```bash
+curl -X POST https://your-app.vercel.app/api/digest \
+  -H "Authorization: Bearer $CRON_SECRET" \
+  -H "Content-Type: application/json" \
+  -d '{"day":"2026-10-25"}'
+```
+
+All numbers are computed from stored observations first. Gemini only rewrites that facts JSON; if the key is missing, the request fails, the output breaks the number guard, or the model is slow, the route stores a rule-based summary instead. The page reads the stored row, so visitors never trigger a Gemini call.
 
 ## Map configuration
 

@@ -111,10 +111,10 @@ export default async function StationPage({ params }: PageParams) {
   const remainder = restParts.join(",").trim();
 
   return (
-    <div className="pb-6">
+    <div className="joy-page joy-detail pb-6">
       <section className="mx-auto w-full max-w-[1240px] px-5 pt-8 sm:px-8 sm:pt-10">
         <p className="flex items-center gap-2 text-[11px] text-muted">
-          <Link href="/stations" className="hover:text-fog">
+          <Link href="/stations" className="inline-flex min-h-11 items-center hover:text-fog">
             Stations
           </Link>
           <span aria-hidden="true" className="text-muted/40">
@@ -164,7 +164,7 @@ export default async function StationPage({ params }: PageParams) {
 
             <div className="mt-5 flex items-end gap-3">
               <span
-                className="num text-[76px] font-semibold leading-[0.82] tracking-[-0.06em]"
+                 className="num text-[48px] font-semibold leading-none tracking-[-0.06em]"
                 style={{ color: style.hex }}
               >
                 {station.api ?? "—"}
@@ -376,7 +376,7 @@ export default async function StationPage({ params }: PageParams) {
               </div>
               <Link
                 href="/stations"
-                className="shrink-0 text-[11px] text-muted hover:text-signal"
+                className="inline-flex min-h-11 shrink-0 items-center text-[11px] text-muted hover:text-signal"
               >
                 Index →
               </Link>
@@ -421,7 +421,7 @@ export default async function StationPage({ params }: PageParams) {
         <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
           <Link
             href="/stations"
-            className="text-[11.5px] text-muted hover:text-fog"
+            className="inline-flex min-h-11 items-center text-[11.5px] text-muted hover:text-fog"
           >
             ← All stations
           </Link>

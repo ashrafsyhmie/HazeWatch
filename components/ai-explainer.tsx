@@ -113,7 +113,7 @@ export function AiExplainer({
               onClick={rewrite}
               disabled={busy}
               aria-busy={busy}
-              className="shrink-0 rounded-full border border-signal/30 bg-signal/[0.08] px-3 py-1.5 text-[11px] font-medium text-signal transition-colors hover:bg-signal/[0.14] disabled:cursor-wait disabled:opacity-60"
+              className="min-h-11 shrink-0 rounded-full border border-signal/30 bg-signal/[0.08] px-3 py-1.5 text-[11px] font-medium text-signal transition-colors hover:bg-signal/[0.14] disabled:cursor-wait disabled:opacity-60"
             >
               {busy
                 ? "Rewriting…"

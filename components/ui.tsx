@@ -125,7 +125,7 @@ export function SourceLinks({
           href={source.url}
           target="_blank"
           rel="noreferrer noopener"
-          className={`inline-flex items-center gap-1 text-muted transition-colors hover:text-fog ${
+          className={`inline-flex min-h-11 items-center gap-1 text-muted transition-colors hover:text-fog ${
             compact ? "text-[11px]" : "text-[11.5px]"
           }`}
         >

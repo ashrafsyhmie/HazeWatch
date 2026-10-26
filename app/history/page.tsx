@@ -44,7 +44,7 @@ export default async function HistoryPage() {
   const last = months.at(-1) as string;
 
   return (
-    <div className="pb-6">
+    <div className="joy-page joy-history pb-6">
       <section className="mx-auto w-full max-w-[1240px] px-5 pb-8 pt-10 sm:px-8 sm:pt-14">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
@@ -83,7 +83,7 @@ export default async function HistoryPage() {
               href={SOURCES[2].url}
               target="_blank"
               rel="noreferrer noopener"
-              className="mt-3 inline-flex items-center gap-1 text-[11px] text-muted hover:text-signal"
+              className="mt-3 inline-flex min-h-11 items-center gap-1 text-[11px] text-muted hover:text-signal"
             >
               OpenDOSM source ↗
             </a>
@@ -107,7 +107,7 @@ export default async function HistoryPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-[1240px] px-5 sm:px-8">
+      <section className="mx-auto w-full max-w-[1240px] px-5 pt-8 sm:px-8 sm:pt-10">
         <SectionHeading
           eyebrow="Two scales"
           title="Particulates and gases, kept apart"

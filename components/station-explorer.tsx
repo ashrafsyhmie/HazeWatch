@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { categoryStyle } from "@/lib/categories";
 import { formatDateTime } from "@/lib/format";
 import type { ExplorerStation } from "@/lib/present";
+import type { SeaStation } from "@/lib/openaq";
 import { DeltaChip, Sparkline } from "@/components/ui";
 import { StationMap } from "@/components/station-map";
 
@@ -12,10 +13,12 @@ export function StationExplorer({
   stations,
   initialSelectedId,
   mapTheme,
+  seaStations,
 }: {
   stations: ExplorerStation[];
   initialSelectedId?: string;
   mapTheme?: "pastel";
+  seaStations?: SeaStation[];
 }) {
   const [query, setQuery] = useState("");
   const [state, setState] = useState("all");
@@ -65,6 +68,7 @@ export function StationExplorer({
             onSelect={setSelectedId}
             theme={mapTheme}
             fitToStations={state !== "all" || query.trim().length > 0}
+            seaStations={seaStations}
           />
         </div>
 
@@ -103,7 +107,7 @@ export function StationExplorer({
                   value={query}
                 onChange={(event) => { setQuery(event.target.value); setSelectedId(null); }}
                   placeholder="Search station or state…"
-                  className="min-h-11 w-full rounded-lg border border-line bg-ink/60 py-2 pl-8 pr-3 text-[12.5px] text-fog placeholder:text-muted/70 focus:border-signal/50 focus:outline-none"
+                  className="min-h-11 w-full rounded-lg border border-line bg-ink/60 py-2 pl-8 pr-3 text-[14px] text-fog placeholder:text-muted/70 focus:border-signal/50 focus:outline-none"
                 />
               </div>
               <label htmlFor="station-state" className="sr-only">
@@ -114,7 +118,7 @@ export function StationExplorer({
                 name="station-state"
                 value={state}
                 onChange={(event) => { setState(event.target.value); setSelectedId(null); }}
-                className="min-h-11 max-w-[124px] rounded-lg border border-line bg-ink/60 px-2 py-2 text-[12px] text-muted focus:border-signal/50 focus:outline-none"
+                className="min-h-11 max-w-[124px] rounded-lg border border-line bg-ink/60 px-2 py-2 text-[13px] text-muted focus:border-signal/50 focus:outline-none"
               >
                 <option value="all">All states</option>
                 {states.map((name) => (
@@ -127,7 +131,7 @@ export function StationExplorer({
           </div>
 
           <div className="flex items-center justify-between gap-2 border-b border-line/70 px-3 py-2">
-            <p aria-live="polite" className="text-[11px] text-muted">
+            <p aria-live="polite" className="text-[13px] text-muted">
               {filtered.length} of {stations.length} stations
             </p>
             <div
@@ -139,7 +143,7 @@ export function StationExplorer({
                 type="button"
                 aria-pressed={sort === "api"}
                 onClick={() => setSort("api")}
-                className={`min-h-11 rounded-full px-2.5 py-1 text-[11px] transition-colors ${
+                className={`min-h-11 rounded-full px-2.5 py-1 text-[13px] transition-colors ${
                   sort === "api" ? "bg-white/[0.08] text-fog" : "text-muted hover:text-fog"
                 }`}
               >
@@ -149,7 +153,7 @@ export function StationExplorer({
                 type="button"
                 aria-pressed={sort === "name"}
                 onClick={() => setSort("name")}
-                className={`min-h-11 rounded-full px-2.5 py-1 text-[11px] transition-colors ${
+                className={`min-h-11 rounded-full px-2.5 py-1 text-[13px] transition-colors ${
                   sort === "name" ? "bg-white/[0.08] text-fog" : "text-muted hover:text-fog"
                 }`}
               >
@@ -163,7 +167,7 @@ export function StationExplorer({
               <section aria-label="Selected station details">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <p className="text-[11px] text-signal">Selected station</p>
+                    <p className="text-[13px] text-signal">Selected station</p>
                     <h3 className="mt-1 text-sm font-medium">{selectedStation.name}</h3>
                     <p className="mt-1 text-xs text-muted">{selectedStation.state}</p>
                   </div>
@@ -172,10 +176,10 @@ export function StationExplorer({
                 <p className="mt-3 text-sm" style={{ color: categoryStyle(selectedStation.api === null ? "unavailable" : selectedStation.category).hex }}>
                   <span className="num text-2xl">{selectedStation.api ?? "—"}</span> · {selectedStation.api === null ? "No reading" : `API · ${categoryStyle(selectedStation.category).label}`}
                 </p>
-                <p className="mt-2 text-xs text-muted">DOE APIMS · {selectedStation.observedAt ? formatDateTime(selectedStation.observedAt) : "Observation time unavailable"} · {selectedStation.freshness}</p>
-                <Link href={`/stations/${encodeURIComponent(selectedStation.id)}`} className="mt-3 inline-block text-xs text-signal">View station history →</Link>
+                <p className="mt-2 text-[13px] text-muted">DOE APIMS · {selectedStation.observedAt ? formatDateTime(selectedStation.observedAt) : "Observation time unavailable"} · {selectedStation.freshness}</p>
+                <Link href={`/stations/${encodeURIComponent(selectedStation.id)}`} className="mt-3 inline-block text-[13px] text-signal">View station history →</Link>
               </section>
-            ) : <p className="text-xs text-muted">Select a map marker or station below to inspect its reading.</p>}
+            ) : <p className="text-[13px] text-muted">Select a map marker or station below to inspect its reading.</p>}
           </div>
 
           <div className="scroll-thin max-h-[520px] min-h-0 flex-1 overflow-y-auto lg:max-h-none">
@@ -206,13 +210,13 @@ export function StationExplorer({
                   const style = categoryStyle(station.category);
                   const selected = station.id === selectedId;
                   return (
-                    <li key={station.id} className="[content-visibility:auto] [contain-intrinsic-size:0_58px]">
+                    <li key={station.id} className="[content-visibility:auto] [contain-intrinsic-size:0_82px]">
                       <button
                         type="button"
                         onClick={() => setSelectedId(station.id)}
                         aria-pressed={selected}
                         title={station.name}
-                        className={`group flex w-full items-center gap-2.5 border-b border-line/50 px-3 py-2.5 text-left transition-colors hover:bg-white/[0.035] ${
+                         className={`group flex w-full items-center gap-2.5 border-b border-line/50 px-3 py-3 text-left transition-colors hover:bg-white/[0.035] ${
                           selected ? "bg-white/[0.05]" : ""
                         }`}
                       >
@@ -222,23 +226,23 @@ export function StationExplorer({
                           style={{ backgroundColor: style.hex }}
                         />
                         <span className="min-w-0 flex-1">
-                          <span className="block truncate text-[12.5px] font-medium text-fog">
+                           <span className="block truncate text-[14px] font-medium text-fog">
                             {station.shortName}
                           </span>
-                          <span className="mt-0.5 block truncate text-[11px] text-muted">
+                           <span className="mt-0.5 block truncate text-[12px] text-muted">
                             {station.state} · {station.time} MYT
                             {station.freshness !== "Current" && station.api !== null
                               ? ` · ${station.freshness}`
                               : ""}
                           </span>
-                          <span className="mt-1 block text-[11px]" style={{ color: style.hex }}>{style.label}</span>
+                           <span className="mt-1 block text-[12px]" style={{ color: style.hex }}>{style.label}</span>
                         </span>
                         {station.spark.length > 1 ? (
                           <Sparkline values={station.spark} color={style.hex} />
                         ) : null}
                         <span className="shrink-0 text-right">
                           <span
-                            className="num block text-[16px] font-semibold leading-tight"
+                             className="num block text-[19px] font-semibold leading-tight"
                             style={{ color: style.hex }}
                           >
                             {station.api ?? "—"}

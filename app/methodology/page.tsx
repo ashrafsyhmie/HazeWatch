@@ -5,7 +5,7 @@ import { formatDateTime } from "@/lib/format";
 export const metadata = {
   title: "Method & limits",
   description:
-    "How HazeWatch sources observations, classifies readings, calculates trends, uses Gemini and handles official forecasts.",
+    "How HazeWatch handles Malaysian API, regional PM2.5, trends, explanations and official forecasts.",
 };
 
 const INDEX = [
@@ -69,23 +69,22 @@ export default async function MethodologyPage() {
   const runs = await getIngestionRuns(6);
 
   return (
-    <div className="pb-6">
+    <div className="joy-page joy-method pb-6">
       <section className="mx-auto w-full max-w-[1240px] px-5 pt-10 sm:px-8 sm:pt-14">
         <p className="text-[11px] font-medium text-signal/80">
           Method &amp; limits
         </p>
         <h1 className="mt-3 max-w-3xl text-4xl font-medium leading-[1.04] tracking-[-0.045em] text-fog sm:text-[52px]">
-          What we know,
-          <span className="text-muted"> how we know it, and what we refuse to guess.</span>
+          How HazeWatch reads the air
         </h1>
         <p className="mt-4 max-w-2xl text-[13.5px] leading-relaxed text-muted">
-          HazeWatch is an independent reader of official Malaysian data. This
-          page documents the exact boundaries: what is observed, what is an
-          official forecast, and what is our own analysis.
+           HazeWatch reads official Malaysian observations alongside separate
+           regional PM2.5 measurements. Here is what is observed, what is a
+           forecast, and what is our own analysis.
         </p>
       </section>
 
-      <div className="mx-auto mt-10 grid w-full max-w-[1240px] gap-10 px-5 sm:px-8 lg:grid-cols-[200px_1fr]">
+       <div className="mx-auto mt-10 grid w-full max-w-[1240px] grid-cols-[minmax(0,1fr)] gap-10 px-5 sm:px-8 lg:grid-cols-[200px_minmax(0,1fr)]">
         <nav aria-label="On this page" className="hidden lg:block">
           <div className="sticky top-24">
             <p className="text-[11px] font-medium text-muted">
@@ -106,7 +105,7 @@ export default async function MethodologyPage() {
           </div>
         </nav>
 
-        <div className="space-y-10">
+         <div className="min-w-0 space-y-10">
           <Section
             id="layers"
             eyebrow="01 · Separation"
@@ -153,12 +152,12 @@ export default async function MethodologyPage() {
             eyebrow="02 · Classification"
             title="Malaysia's API bands, used as published"
           >
-            <div className="overflow-hidden rounded-xl border border-line/70">
+             <div className="overflow-x-auto rounded-xl border border-line/70">
               <table className="w-full text-left text-[11.5px]">
                 <thead className="bg-white/[0.03] text-[11px] text-muted">
                   <tr>
                     <th className="px-4 py-2.5 font-medium">Band</th>
-                    <th className="px-4 py-2.5 font-medium">API range</th>
+                     <th className="px-4 py-2.5 text-right font-medium">API range</th>
                     <th className="px-4 py-2.5 font-medium">Meaning</th>
                   </tr>
                 </thead>
@@ -174,7 +173,7 @@ export default async function MethodologyPage() {
                           {category.label}
                         </span>
                       </td>
-                      <td className="num px-4 py-2.5 text-muted">{category.range}</td>
+                       <td className="num px-4 py-2.5 text-right text-muted">{category.range}</td>
                       <td className="px-4 py-2.5 text-muted">
                         {category.range === "Above 300"
                           ? "Hazardous"
@@ -271,7 +270,7 @@ export default async function MethodologyPage() {
           <Section
             id="sources"
             eyebrow="05 · Provenance"
-            title="Official sources and their role"
+           title="Sources and their role"
           >
             <div className="space-y-3">
               {SOURCES.map((source) => (
@@ -287,7 +286,7 @@ export default async function MethodologyPage() {
                       href={source.url}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="text-[11px] text-muted hover:text-signal"
+                       className="inline-flex min-h-11 items-center text-[11px] text-muted hover:text-signal"
                     >
                       Source ↗
                     </a>
@@ -297,6 +296,15 @@ export default async function MethodologyPage() {
                   </p>
                 </div>
               ))}
+              <div className="rounded-xl border border-line/70 bg-surface-2/50 p-4">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-[12px] font-medium text-fog">OpenAQ · Southeast Asia PM2.5</p>
+                  <a href="https://openaq.org/" target="_blank" rel="noreferrer noopener" className="inline-flex min-h-11 items-center text-[11px] text-muted hover:text-signal">Source ↗</a>
+                </div>
+                <p className="mt-1.5 text-[11px] text-muted">
+                  Nearby city monitors and sensors. Only PM2.5 measurements from the last six hours are displayed. They are not converted to Malaysia API or used in Malaysian analysis.
+                </p>
+              </div>
             </div>
             <p>
               ASMC hotspot and haze information is not ingested: its published
@@ -429,8 +437,8 @@ export default async function MethodologyPage() {
                       <tr>
                         <th className="px-4 py-2 font-medium">Source</th>
                         <th className="px-3 py-2 font-medium">Status</th>
-                        <th className="px-3 py-2 font-medium">Accepted</th>
-                        <th className="px-3 py-2 font-medium">Rejected</th>
+                         <th className="px-3 py-2 text-right font-medium">Accepted</th>
+                         <th className="px-3 py-2 text-right font-medium">Rejected</th>
                         <th className="px-3 py-2 font-medium">Started</th>
                       </tr>
                     </thead>
@@ -441,8 +449,8 @@ export default async function MethodologyPage() {
                           <td className="px-3 py-2">
                             <StatusPill status={run.status} />
                           </td>
-                          <td className="num px-3 py-2 text-muted">{run.accepted}</td>
-                          <td className="num px-3 py-2 text-muted">{run.rejected}</td>
+                           <td className="num px-3 py-2 text-right text-muted">{run.accepted}</td>
+                           <td className="num px-3 py-2 text-right text-muted">{run.rejected}</td>
                           <td className="num px-3 py-2 text-muted">
                             {formatDateTime(run.startedAt)}
                           </td>
@@ -465,7 +473,8 @@ export default async function MethodologyPage() {
               <span className="num text-[11px]">SUPABASE_SERVICE_ROLE_KEY</span> and{" "}
               <span className="num text-[11px]">CRON_SECRET</span>. Optional:{" "}
               <span className="num text-[11px]">GEMINI_API_KEY</span>,{" "}
-              <span className="num text-[11px]">GEMINI_MODEL</span>.
+               <span className="num text-[11px]">GEMINI_MODEL</span> and{" "}
+               <span className="num text-[11px]">OPENAQ_API_KEY</span>.
               Maps work without credentials; provider settings live in lib/map.ts.
             </p>
             <p>

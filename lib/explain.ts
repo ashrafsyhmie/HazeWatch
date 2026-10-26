@@ -225,7 +225,7 @@ const RESPONSE_FORMAT = {
   },
 } as const;
 
-function extractText(payload: unknown): string | null {
+export function extractText(payload: unknown): string | null {
   if (typeof payload !== "object" || payload === null) return null;
   const record = payload as Record<string, unknown>;
   if (typeof record.output_text === "string") return record.output_text;
@@ -248,7 +248,7 @@ function extractText(payload: unknown): string | null {
 }
 
 /** Any number the model writes must already exist in the supplied facts. */
-export function outputRespectsFacts(text: string, facts: ExplanationFacts): boolean {
+export function outputRespectsFacts(text: string, facts: unknown): boolean {
   const haystack = JSON.stringify(facts);
   const allowed = new Set(
     (haystack.match(/\d+(?:\.\d+)?/g) ?? []).map(normalizeNumber),

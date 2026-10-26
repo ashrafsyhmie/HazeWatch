@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useSyncExternalStore } from "react";
 import { CategoryBadge } from "@/components/ui";
 import { categoryStyle } from "@/lib/categories";
+import { formatDateTime } from "@/lib/format";
 import type { CategoryKey } from "@/lib/types";
 
 const KEY = "hazewatch.preferred-station.v1";
@@ -115,17 +116,30 @@ export type PreferredCandidate = {
   api: number | null;
   category: CategoryKey;
   time: string;
+  observedAt?: string | null;
   freshness: string;
 };
 
 export function PreferredStationCard({
   candidates,
+  showEmpty = false,
 }: {
   candidates: PreferredCandidate[];
+  showEmpty?: boolean;
 }) {
   const saved = useSavedStation();
 
-  if (!saved) return null;
+  if (!saved) return showEmpty ? (
+    <div className="panel flex flex-wrap items-center justify-between gap-4 px-5 py-5">
+      <div>
+        <p className="text-[14px] font-medium text-fog">No station pinned yet</p>
+        <p className="mt-1 text-[13px] text-muted">Find a Malaysian station on the map, open its details, and choose “Pin station.”</p>
+      </div>
+      <a href="#stations" className="inline-flex min-h-11 items-center rounded-full border border-line px-4 text-[13px] font-medium text-signal hover:border-signal">
+        Find a station →
+      </a>
+    </div>
+  ) : null;
 
   const station = candidates.find((candidate) => candidate.id === saved.id);
 
@@ -185,7 +199,7 @@ export function PreferredStationCard({
           <CategoryBadge category={station.category} />
         </div>
         <p className="text-[11px] text-muted">
-          {station.time} MYT
+          {station.observedAt ? formatDateTime(station.observedAt) : station.time === "—" ? "Observation time unavailable" : `${station.time} MYT`}
           {station.freshness !== "Current" ? ` · ${station.freshness}` : ""}
         </p>
         <Link

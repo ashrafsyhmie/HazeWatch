@@ -10,8 +10,8 @@ import {
 import { categoryStyle } from "@/lib/categories";
 import { getSnapshot, SOURCES } from "@/lib/data";
 import { formatDateTime } from "@/lib/format";
+import { getSeaStations } from "@/lib/openaq";
 import { summariseStates, toExplorerStations } from "@/lib/present";
-import type { Snapshot } from "@/lib/types";
 
 export const revalidate = 300;
 
@@ -19,14 +19,15 @@ export const revalidate = 300;
 export const metadata = {
   title: "Stations",
   description:
-    "Every APIMS air-quality station in Malaysia, mapped across Southeast Asia with current readings, coordinates and recent history.",
+    "Every APIMS air-quality station in Malaysia, mapped across Southeast Asia, plus third-party PM2.5 for major regional cities.",
 };
 
 export default async function StationsPage() {
-  let snapshot: Snapshot;
-  try {
-    snapshot = await getSnapshot();
-  } catch {
+  const [snapshot, seaStations] = await Promise.all([
+    getSnapshot().catch(() => null),
+    getSeaStations(),
+  ]);
+  if (!snapshot) {
     return <DataUnavailable />;
   }
 
@@ -34,7 +35,7 @@ export default async function StationsPage() {
   const states = summariseStates(snapshot);
 
   return (
-    <div className="pb-6">
+    <div className="joy-page joy-stations pb-6">
       <section className="mx-auto w-full max-w-[1240px] px-5 pb-8 pt-10 sm:px-8 sm:pt-14">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
@@ -87,16 +88,59 @@ export default async function StationsPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-[1240px] px-5 sm:px-8">
-        <StationExplorer
-          stations={explorer}
-        />
+      <section className="mx-auto w-full max-w-[1240px] px-5 pt-6 sm:px-8 sm:pt-8">
+        <div className="joy-finder">
+          <StationExplorer
+            stations={explorer}
+            seaStations={seaStations}
+            mapTheme="pastel"
+          />
+        </div>
         <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
           <SourceLinks sources={[SOURCES[0]]} compact />
           <p className="text-[11px] text-muted">
             Map covers Southeast Asia; coordinates are the stations&apos; published APIMS positions.
           </p>
         </div>
+      </section>
+
+      <section className="mx-auto mt-14 w-full max-w-[1240px] px-5 sm:px-8">
+        <SectionHeading
+          title="Across Southeast Asia"
+          description="A closer look at the air in nearby cities. PM2.5 uses a different scale from Malaysia's API."
+        />
+        {seaStations.length > 0 ? (
+          <div className="mt-5 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
+            {seaStations.map((station) => (
+              <article key={station.id} className="panel px-4 py-3">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0">
+                    <p className="truncate text-[13px] font-medium text-fog">{station.city}</p>
+                    <p className="mt-0.5 truncate text-[11px] text-muted">{station.country}</p>
+                  </div>
+                   <span className="shrink-0 rounded-full border border-line px-2 py-0.5 text-[11px] text-muted">
+                    PM2.5
+                  </span>
+                </div>
+                <p className="num mt-3 text-[28px] font-medium leading-none text-fog">
+                  {Math.round(station.pm25)}
+                  <span className="ml-1 text-[11px] font-normal text-muted">µg/m³</span>
+                </p>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <p className="mt-5 rounded-xl border border-line bg-surface-2/60 px-4 py-4 text-[12px] text-muted">
+            No recent regional PM2.5 readings are available.
+          </p>
+        )}
+        <p className="mt-3 text-[11px] text-muted">
+          Source:{" "}
+          <a href="https://openaq.org/" target="_blank" rel="noreferrer noopener" className="text-signal">
+            OpenAQ ↗
+          </a>
+          . Recent PM2.5 only · Separate from Malaysia&apos;s API.
+        </p>
       </section>
 
       <section className="mx-auto mt-14 w-full max-w-[1240px] px-5 sm:px-8">
@@ -130,7 +174,7 @@ export default async function StationsPage() {
                   {state.highest ? (
                     <CategoryBadge
                       category={state.highest.category}
-                      className="!px-2 !py-0.5 !text-[8.5px]"
+                      className="!px-2 !py-0.5 !text-[11px]"
                     />
                   ) : null}
                 </div>

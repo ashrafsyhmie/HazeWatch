@@ -93,7 +93,7 @@ export function ForecastPanel({ status }: { status: ForecastStatus }) {
         href={status.mapUrl}
         target="_blank"
         rel="noreferrer noopener"
-        className="mt-4 inline-flex w-fit items-center gap-1.5 rounded-full border border-ember/30 bg-ember/[0.08] px-3.5 py-1.5 text-[11.5px] font-medium text-ember transition-colors hover:bg-ember/[0.14]"
+        className="mt-4 inline-flex min-h-11 w-fit items-center gap-1.5 rounded-full border border-ember/30 bg-ember/[0.08] px-3.5 py-1.5 text-[11.5px] font-medium text-ember transition-colors hover:bg-ember/[0.14]"
       >
         Open official forecast map
         <span aria-hidden="true" className="text-[11px]">

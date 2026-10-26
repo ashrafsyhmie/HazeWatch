@@ -6,14 +6,16 @@ import type { Map as LibreMap, Marker } from "maplibre-gl";
 import { CATEGORIES, categoryStyle } from "@/lib/categories";
 import { MAP_PROVIDER, SEA_BOUNDS, hasMapCoordinates, markerLabel } from "@/lib/map";
 import type { ExplorerStation } from "@/lib/present";
+import type { SeaStation } from "@/lib/openaq";
 import { formatDateTime } from "@/lib/format";
 
-export function StationMap({ stations, selectedId, onSelect, theme, fitToStations }: {
+export function StationMap({ stations, selectedId, onSelect, theme, fitToStations, seaStations }: {
   stations: ExplorerStation[];
   selectedId: string | null;
   onSelect: (id: string) => void;
   theme?: "pastel";
   fitToStations?: boolean;
+  seaStations?: SeaStation[];
 }) {
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -149,6 +151,42 @@ export function StationMap({ stations, selectedId, onSelect, theme, fitToStation
         markers.push(marker);
         bounds.extend([station.lng, station.lat]);
       }
+      for (const station of seaStations ?? []) {
+        if (!hasMapCoordinates(station)) continue;
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "station-marker sea-marker";
+        button.textContent = String(Math.round(station.pm25));
+        button.setAttribute(
+          "aria-label",
+          `${station.city} · ${station.name} · PM2.5 ${Math.round(station.pm25)} micrograms per cubic metre · OpenAQ`,
+        );
+        const details = document.createElement("section");
+        details.setAttribute("aria-label", "Station information");
+        const name = document.createElement("h3");
+        name.className = "text-sm font-semibold text-fog";
+        name.textContent = station.name;
+        const place = document.createElement("p");
+        place.className = "mt-1 text-xs text-muted";
+        place.textContent = `${station.city} · ${station.country}`;
+        const reading = document.createElement("p");
+        reading.className = "mt-3 text-sm font-medium text-signal";
+        reading.textContent = `PM2.5 ${Math.round(station.pm25)} µg/m³`;
+        const updated = document.createElement("p");
+        updated.className = "mt-2 text-xs leading-relaxed text-muted";
+        updated.textContent = `OpenAQ · ${formatDateTime(station.observedAt)} · ${station.isMonitor ? "Reference monitor" : "Low-cost sensor"}`;
+        const note = document.createElement("p");
+        note.className = "mt-2 text-[11px] leading-relaxed text-muted";
+        note.textContent = "Third-party reading. Not Malaysia's API.";
+        details.append(name, place, reading, updated, note);
+        const popup = new Popup({ offset: 20, maxWidth: "260px", className: "station-popup" })
+          .setDOMContent(details);
+        const marker = new Marker({ element: button })
+          .setLngLat([station.lng, station.lat])
+          .setPopup(popup)
+          .addTo(map);
+        markers.push(marker);
+      }
       markersRef.current = markers;
       // Regional view by default; only zoom to markers once a search or state filter narrows them.
       map.fitBounds(fitToStations && !bounds.isEmpty() ? bounds : SEA_BOUNDS, {
@@ -165,7 +203,7 @@ export function StationMap({ stations, selectedId, onSelect, theme, fitToStation
       disposed = true;
       markers.forEach((marker) => marker.remove());
     };
-  }, [map, stations, onSelect, router, fitToStations]);
+  }, [map, stations, onSelect, router, fitToStations, seaStations]);
 
   useEffect(() => {
     selectionRef.current = selectedId;
@@ -204,6 +242,12 @@ export function StationMap({ stations, selectedId, onSelect, theme, fitToStation
             {category.label}
           </span>
         ))}
+        {seaStations && seaStations.length > 0 ? (
+          <span className="inline-flex items-center gap-1.5 text-[11px] text-muted">
+            <span className="h-1.5 w-1.5 rounded-full border border-[#2563eb]" />
+            PM2.5 · OpenAQ
+          </span>
+        ) : null}
       </div>
     </div>
   );

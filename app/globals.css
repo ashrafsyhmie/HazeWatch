@@ -118,20 +118,58 @@
   z-index: 2;
 }
 
-/* Regional overview: dots stay readable, 40px hit area; numbers return when zoomed in. */
-.is-regional .station-marker {
-  min-width: 12px;
-  height: 12px;
+/* Regional overview: a 44px button holds a small coloured dot. */
+.is-regional .station-marker:not(.sea-marker) {
+  min-width: 44px;
+  width: 44px;
+  height: 44px;
   padding: 0;
+  border: 0;
   border-radius: 9999px;
-  background: currentColor;
-  font-size: 0;
+  background: transparent;
+  font-size: 12px;
+  text-indent: -9999px;
+  overflow: hidden;
 }
 
-.is-regional .station-marker::after {
+.is-regional .station-marker:not(.sea-marker)::before {
   content: "";
   position: absolute;
-  inset: -14px;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* Third-party PM2.5 stays visible at the regional view and reads as a separate layer. */
+.sea-marker {
+  border-style: dashed;
+  border-color: #2563eb;
+  color: #1d4ed8;
+}
+
+.is-regional .station-marker.sea-marker {
+  min-width: 44px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 11px;
+  isolation: isolate;
+}
+
+.is-regional .station-marker.sea-marker::before {
+  content: "";
+  position: absolute;
+  inset: 8px 5px;
+  z-index: -1;
+  border: 1px dashed #2563eb;
+  border-radius: 8px;
+  background: #fff;
 }
 
 .maplibregl-ctrl-attrib {
