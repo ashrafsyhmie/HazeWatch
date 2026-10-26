@@ -1,4 +1,4 @@
-import { addHours } from "@/lib/format";
+import { addHours, formatDateTime, minutesBetween } from "@/lib/format";
 import { buildInsights, freshnessOf, nationalSummary, summariseTrend } from "@/lib/analysis";
 import { CATEGORIES, categoryFromApi, categoryFromSourceClass } from "@/lib/categories";
 import type {
@@ -40,6 +40,8 @@ export const SOURCES: SourceMeta[] = [
 ];
 
 const LIVE_TTL_MS = 5 * 60 * 1000;
+// Older than two hours means the archive missed an hourly publication.
+const STORED_STALE_MINUTES = 120;
 
 type LiveCache = {
   at: number;
@@ -224,14 +226,22 @@ async function loadStoredBundle(): Promise<{
   if (rows.length === 0) return { stations: [], observations: [] };
 
   const since = addHours(new Date().toISOString(), -36);
-  const { data: observations, error: observationError } = await supabase
-    .from("observations")
-    .select("location_id, observed_at, value, source_class, source_symbol")
-    .eq("metric", "api")
-    .gte("observed_at", since)
-    .order("observed_at", { ascending: true })
-    .limit(6000);
-  if (observationError) throw new Error(observationError.message);
+  // PostgREST caps a response at 1000 rows, so page through the window.
+  const observations: ObservationRow[] = [];
+  const PAGE = 1000;
+  for (let from = 0; from < PAGE * 5; from += PAGE) {
+    const { data, error } = await supabase
+      .from("observations")
+      .select("location_id, observed_at, value, source_class, source_symbol")
+      .eq("metric", "api")
+      .gte("observed_at", since)
+      .order("observed_at", { ascending: true })
+      .range(from, from + PAGE - 1);
+    if (error) throw new Error(error.message);
+    const page = (data ?? []) as ObservationRow[];
+    observations.push(...page);
+    if (page.length < PAGE) break;
+  }
 
   const stationByLocation = new Map<string, Station>();
   const stations: Station[] = rows.map((row) => {
@@ -248,7 +258,7 @@ async function loadStoredBundle(): Promise<{
   });
 
   const seeds: ObservationSeed[] = [];
-  for (const row of (observations ?? []) as ObservationRow[]) {
+  for (const row of observations) {
     const station = stationByLocation.get(row.location_id);
     if (!station) continue;
     seeds.push({
@@ -268,34 +278,54 @@ async function loadStoredBundle(): Promise<{
 export async function getSnapshot(): Promise<Snapshot> {
   const now = new Date().toISOString();
   let notice: string | undefined;
+  let storedSnapshot: Snapshot | null = null;
 
   if (isSupabaseConfigured()) {
     try {
       const stored = await loadStoredBundle();
       if (stored.observations.length > 0) {
-        return assembleSnapshot({
+        storedSnapshot = assembleSnapshot({
           mode: "supabase",
           stations: stored.stations,
           observations: stored.observations,
           now,
         });
+        const latest = storedSnapshot.latestObservedAt;
+        // The archive must not pass an old hour off as the current one.
+        if (latest && minutesBetween(latest, now) <= STORED_STALE_MINUTES) {
+          return storedSnapshot;
+        }
+        notice = latest
+          ? `The archive's newest reading is ${formatDateTime(latest)} MYT. Showing live APIMS readings instead.`
+          : undefined;
+      } else {
+        notice =
+          "No stored observations yet. Showing live APIMS readings without persistence — run collection to start the archive.";
       }
-      notice =
-        "No stored observations yet. Showing live APIMS readings without persistence — run collection to start the archive.";
     } catch {
       notice =
         "Stored data is unavailable right now. Showing live APIMS readings instead; nothing is being saved.";
     }
   }
 
-  const live = await getLiveBundle();
-  return assembleSnapshot({
-    mode: "live",
-    stations: live.bundle.stations,
-    observations: live.bundle.observations,
-    now,
-    notice: notice ?? live.notice,
-  });
+  try {
+    const live = await getLiveBundle();
+    return assembleSnapshot({
+      mode: "live",
+      stations: live.bundle.stations,
+      observations: live.bundle.observations,
+      now,
+      notice: notice ?? live.notice,
+    });
+  } catch (error) {
+    if (!storedSnapshot) throw error;
+    return {
+      ...storedSnapshot,
+      notice: `Live APIMS is unavailable. Showing the archive's newest reading from ${formatDateTime(
+        storedSnapshot.latestObservedAt ?? now,
+      )} MYT.`,
+    };
+  }
 }
 
 export async function getStation(externalId: string): Promise<{

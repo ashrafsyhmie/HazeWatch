@@ -13,7 +13,7 @@ import {
   QuickLink,
 } from "@/components/ui";
 import { categoryFromApi, categoryStyle } from "@/lib/categories";
-import { getStation } from "@/lib/data";
+import { getSnapshot, getStation } from "@/lib/data";
 import { fallbackExplanation, factsForStation } from "@/lib/explain";
 import {
   formatAge,
@@ -24,7 +24,17 @@ import {
 import { nearestStations, toTrendSeries } from "@/lib/present";
 
 export const revalidate = 300;
-export const dynamic = "force-static";
+
+export async function generateStaticParams() {
+  try {
+    const snapshot = await getSnapshot();
+    return snapshot.stations.map((station) => ({
+      stationId: station.externalId,
+    }));
+  } catch {
+    return [];
+  }
+}
 
 type PageParams = { params: Promise<{ stationId: string }> };
 

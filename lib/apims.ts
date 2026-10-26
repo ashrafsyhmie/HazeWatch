@@ -78,7 +78,7 @@ async function getJson(path: string): Promise<unknown> {
     let response: Response;
     try {
       response = await fetch(url, {
-        cache: "no-store",
+        next: { revalidate: 300 },
         headers: { accept: "application/json" },
         signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
       });

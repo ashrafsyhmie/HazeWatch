@@ -32,7 +32,6 @@ import {
 import type { Snapshot } from "@/lib/types";
 
 export const revalidate = 300;
-export const dynamic = "force-static";
 
 
 function shortName(name: string): string {

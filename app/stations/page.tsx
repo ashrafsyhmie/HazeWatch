@@ -14,7 +14,6 @@ import { summariseStates, toExplorerStations } from "@/lib/present";
 import type { Snapshot } from "@/lib/types";
 
 export const revalidate = 300;
-export const dynamic = "force-static";
 
 
 export const metadata = {
