@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { AiExplainer } from "@/components/ai-explainer";
 import { TrendChart } from "@/components/charts";
 import { DataUnavailable } from "@/components/data-unavailable";
+import { HealthGuidance } from "@/components/health-guidance";
 import { SaveStationButton } from "@/components/preferred-station";
 import {
   CategoryBadge,
@@ -254,6 +255,10 @@ export default async function StationPage({ params }: PageParams) {
             </p>
           </div>
         ) : null}
+
+        <div className="mt-3">
+          <HealthGuidance category={station.category} />
+        </div>
 
         <div className="mt-3 grid gap-3 lg:grid-cols-2">
           <section className="panel flex h-full flex-col p-5 sm:p-6">

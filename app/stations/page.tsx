@@ -1,5 +1,6 @@
 import { DataUnavailable } from "@/components/data-unavailable";
 import { StationExplorer } from "@/components/station-explorer";
+import { NearestStation } from "@/components/nearest-station";
 import {
   CategoryBadge,
   ModeNotice,
@@ -90,6 +91,7 @@ export default async function StationsPage() {
 
       <section className="mx-auto w-full max-w-[1240px] px-5 pt-6 sm:px-8 sm:pt-8">
         <div className="joy-finder">
+          <div className="mb-3"><NearestStation stations={explorer} /></div>
           <StationExplorer
             stations={explorer}
             seaStations={seaStations}
