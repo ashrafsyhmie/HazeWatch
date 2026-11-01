@@ -23,6 +23,8 @@ Air-quality information is spread across different sources. HazeWatch brings off
 | **National overview** | Check reporting coverage and air-quality categories across Malaysia. |
 | **Station history** | Follow recent readings through charts and six-hour comparisons. |
 | **Worsening-condition watch** | Identify stations with rising API readings. |
+| **Air quality near you** | Opt in to your location to find the closest stations with a current reading. Your position never leaves the browser. |
+| **Health guidance** | Plain-language precautions for each API band, tailored for everyone, outdoor workers, school and sport, and people at higher risk. |
 
 Station observations come from **DOE APIMS Malaysia**, with source attribution and timestamps displayed alongside the data.
 

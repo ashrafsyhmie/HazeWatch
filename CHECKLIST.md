@@ -22,7 +22,10 @@ _Last updated: 2026-10-25_
 | MyCMAQ official context | Done | Cycle + manifest metadata + link only |
 | OpenDOSM monthly context | Done | Separate from station data |
 | Scheduled collection | Done (code) | `/api/ingest`, Vercel Cron, Supabase Cron docs |
-| Unit tests | Done | 86 tests |
+| Health guidance by audience | Done | `lib/guidance.ts`, station page panel; general precautions only |
+| Nearest station from location | Done | Opt-in, browser-only geolocation on `/stations` |
+| Hourly collection workflow | Done (code) | `.github/workflows/ingest.yml`; needs `APP_URL` + `CRON_SECRET` secrets |
+| Unit tests | Done | 99 tests |
 | Lint / typecheck / build | Done | All gates pass |
 
 ## External verification still required
@@ -31,7 +34,8 @@ _Last updated: 2026-10-25_
 - [ ] **Vercel project** — deploy, set env vars, verify cron invocation.
 - [ ] **Map provider** — confirm tiles and attribution are reachable from the deployment.
 - [ ] **Gemini key** — confirm live rewrite succeeds and still passes the number guard.
-- [ ] **Cron schedule** — hourly support depends on plan; Supabase Cron alternative documented.
+- [ ] **Cron schedule** — add `APP_URL` and `CRON_SECRET` GitHub secrets so the hourly workflow can run; Supabase Cron alternative documented.
+- [ ] **Health guidance review** — have the team check the wording against current MOH/DOE advisories before launch.
 
 ## Deliberately not built
 

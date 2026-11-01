@@ -10,6 +10,8 @@ Malaysia-first air-quality and haze intelligence. It reads official observations
 - **Station map and searchable index** for every published APIMS station, with readings, timestamps and recent sparklines.
 - **Station detail** with 24-hour series, 6-hour trend rule, 24-hour peak, category boundary, source class and nearby stations.
 - **Pinned station** stored in the browser only; no account or server-side preference.
+- **Air quality near you**: an opt-in "Use my location" button on the station index finds the closest stations with a current reading. The position is used in the browser only and is never sent or stored.
+- **Health guidance** on each station page: general precautions for the official API band, with an audience toggle (everyone, outdoor work, school and sport, higher risk). Not medical advice.
 - **Observed momentum** list: stations whose API rose at least 10 points over about six hours.
 - **Plain-language briefings** generated from verified facts; deterministic fallback always available.
 - **Official forecast panel** for MyCMAQ map cycles, with numeric forecast analysis deliberately disabled.
@@ -119,6 +121,15 @@ Public tables have RLS enabled with read-only policies. `ingestion_runs` has no 
 
 `vercel.json` schedules `/api/ingest` daily at 00:15 UTC, which is supported on Vercel Hobby. Vercel sends `Authorization: Bearer $CRON_SECRET` when `CRON_SECRET` is set. For an hourly archive, use Supabase Cron or a Vercel plan that supports hourly jobs.
 
+### GitHub Actions (free hourly option)
+
+`.github/workflows/ingest.yml` calls `/api/ingest` at minute 15 of every hour, so the archive gets hourly history without a paid Vercel plan. Add two repository secrets under **Settings > Secrets and variables > Actions**:
+
+- `APP_URL`: the deployed site, for example `https://hazewatch-drab.vercel.app`
+- `CRON_SECRET`: the same value as the `CRON_SECRET` env var on Vercel
+
+Run it once by hand from the **Actions** tab (**Hourly ingest > Run workflow**) and check that the response lists accepted rows. The endpoint is idempotent, so running it alongside the daily Vercel cron is safe.
+
 ### Supabase Cron (alternative)
 
 Enable `pg_cron` and `pg_net` in the Supabase dashboard, then (replace the URL and secret):
@@ -224,7 +235,7 @@ Without a key, the rule-based briefing is shown and the UI says Gemini is not co
 
 ## Tests
 
-88 unit tests cover:
+99 unit tests cover:
 
 - Malaysia wall-clock parsing, round-trips and impossible dates
 - API category boundaries and source-class normalisation
@@ -234,6 +245,8 @@ Without a key, the rule-based briefing is shown and the UI says Gemini is not co
 - OpenDOSM pollutant normalisation, units, invalid dates, null preservation
 - Monthly chart shaping, latest values, nearest-station ordering
 - Map coordinate guards and missing-versus-zero reading labels
+- Health guidance coverage for every band and audience, with no advice for missing readings
+- Nearest-station ranking, skipped empty stations and out-of-network visitors
 - Gemini fact-number guard and deterministic fallbacks
 
 `npm run lint`, `npm run typecheck`, `npm test` and `npm run build` are expected to pass.

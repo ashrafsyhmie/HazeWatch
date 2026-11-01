@@ -163,6 +163,35 @@ export function nearestStations(
     .slice(0, limit);
 }
 
+export type NearestToPoint = { station: ExplorerStation; km: number };
+
+/** Beyond this distance the user is effectively outside the monitoring network. */
+export const NEAREST_MAX_KM = 150;
+
+/**
+ * Finds the closest stations that have a reading to a point such as the
+ * visitor's position. Stations without a reading are skipped so the answer is
+ * always a number the visitor can use. Returns an empty list if nothing is in
+ * range, rather than presenting a far-away station as "nearby".
+ */
+export function nearestToPoint(
+  stations: ExplorerStation[],
+  point: { latitude: number; longitude: number },
+  limit = 3,
+  maxKm = NEAREST_MAX_KM,
+): NearestToPoint[] {
+  if (!Number.isFinite(point.latitude) || !Number.isFinite(point.longitude)) return [];
+  return stations
+    .filter((station) => station.api !== null)
+    .map((station) => ({
+      station,
+      km: distanceKm(point, { latitude: station.lat, longitude: station.lng }),
+    }))
+    .filter((entry) => entry.km <= maxKm)
+    .sort((a, b) => a.km - b.km)
+    .slice(0, limit);
+}
+
 export type StateSummary = {
   state: string;
   reporting: number;
