@@ -21,20 +21,19 @@ _Last updated: 2026-10-25_
 | Station map | Done (code) | OpenFreeMap, no key; list fallback |
 | MyCMAQ official context | Done | Cycle + manifest metadata + link only |
 | OpenDOSM monthly context | Done | Separate from station data |
-| Scheduled collection | Done (code) | `/api/ingest`, Vercel Cron, Supabase Cron docs |
+| Scheduled collection | Done (code) | `/api/ingest`, scheduled with Supabase Cron |
 | Health guidance by audience | Done | `lib/guidance.ts`, station page panel; general precautions only |
 | Nearest station from location | Done | Opt-in, browser-only geolocation on `/stations` |
-| Hourly collection workflow | Done (code) | `.github/workflows/ingest.yml`; needs `APP_URL` + `CRON_SECRET` secrets |
 | Unit tests | Done | 99 tests |
 | Lint / typecheck / build | Done | All gates pass |
 
 ## External verification still required
 
 - [ ] **Supabase project + keys** — apply migration, run `/api/ingest`, confirm stored archive.
-- [ ] **Vercel project** — deploy, set env vars, verify cron invocation.
+- [ ] **Vercel project** — deploy and set application environment variables.
 - [ ] **Map provider** — confirm tiles and attribution are reachable from the deployment.
 - [ ] **Gemini key** — confirm live rewrite succeeds and still passes the number guard.
-- [ ] **Cron schedule** — add `APP_URL` and `CRON_SECRET` GitHub secrets so the hourly workflow can run; Supabase Cron alternative documented.
+- [ ] **Cron schedule** — confirm the hourly ingestion and daily digest jobs run from Supabase Cron.
 - [ ] **Health guidance review** — have the team check the wording against current MOH/DOE advisories before launch.
 
 ## Deliberately not built

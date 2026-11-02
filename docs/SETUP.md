@@ -38,7 +38,7 @@ Malaysia-first air-quality and haze intelligence. It reads official observations
 - Supabase PostgreSQL for observations, locations, forecast runs, monthly history and ingestion logs
 - Recharts for charts; MapLibre GL JS with OpenFreeMap for the basemap
 - Gemini Interactions API for optional explanations
-- Vercel or Supabase Cron for hourly collection
+- Supabase Cron for hourly collection and the daily digest
 
 ## Project layout
 
@@ -117,20 +117,7 @@ Public tables have RLS enabled with read-only policies. `ingestion_runs` has no 
 
 ## Scheduling
 
-### Vercel Cron
-
-`vercel.json` schedules `/api/ingest` daily at 00:15 UTC, which is supported on Vercel Hobby. Vercel sends `Authorization: Bearer $CRON_SECRET` when `CRON_SECRET` is set. For an hourly archive, use Supabase Cron or a Vercel plan that supports hourly jobs.
-
-### GitHub Actions (free hourly option)
-
-`.github/workflows/ingest.yml` calls `/api/ingest` at minute 15 of every hour, so the archive gets hourly history without a paid Vercel plan. Add two repository secrets under **Settings > Secrets and variables > Actions**:
-
-- `APP_URL`: the deployed site, for example `https://hazewatch-drab.vercel.app`
-- `CRON_SECRET`: the same value as the `CRON_SECRET` env var on Vercel
-
-Run it once by hand from the **Actions** tab (**Hourly ingest > Run workflow**) and check that the response lists accepted rows. The endpoint is idempotent, so running it alongside the daily Vercel cron is safe.
-
-### Supabase Cron (alternative)
+### Supabase Cron
 
 Enable `pg_cron` and `pg_net` in the Supabase dashboard, then (replace the URL and secret):
 
